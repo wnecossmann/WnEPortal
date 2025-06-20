@@ -8,8 +8,8 @@
     }
   },
 
-  // Dieser Befehl führt jetzt den kompletten, offiziellen Installationsprozess durch.
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y curl apt-transport-https && curl https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list && sudo apt-get update && sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev && pip install --user -r requirements.txt",
+  // Post-Create-Befehl: Installiert Treiber, erstellt die Linker-Konfiguration und aktualisiert den Cache.
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y curl apt-transport-https && curl https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list && sudo apt-get update && sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev && echo '/usr/lib/x86_64-linux-gnu' | sudo tee /etc/ld.so.conf.d/odbc.conf && sudo ldconfig && pip install --user -r requirements.txt",
 
   "customizations": {
     "vscode": {
